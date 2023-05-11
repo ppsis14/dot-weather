@@ -1,6 +1,6 @@
 function Footer() {
   return (
-    <div className="text-slate-500 w-full h-16 bg-slate-50 flex justify-center items-center gap-1 text-xs sm:text-sm">
+    <div className="text-slate-500 w-full h-16 bg-slate-50 flex justify-center items-center gap-1 text-xs sm:text-sm fixed bottom-0 left-0">
       &copy; Copyright 2023, Powered by{" "}
       <span className="font-bold text-base sm:text-lg italic tracking-wider text-black">
         .tkp
