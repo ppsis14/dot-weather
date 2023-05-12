@@ -1,12 +1,16 @@
-import { useState } from "react";
+// import { useState } from "react";
 import { RadioGroup } from "@headlessui/react";
+import { useStore } from "../stores";
 
 function Header() {
-  const [tempUnit, setTempUnit] = useState("fahrenheit");
+  const { temperatureUnit, setTemperatureUnit, aqiType, setAqiType } =
+    useStore();
+
+  console.log("temperatureUnit:", temperatureUnit);
 
   return (
     <div className="w-full bg-slate-50 h-16 flex justify-between items-center px-4 fixed top-0 left-0">
-      <div className="flex justify-start h-10 p-1">
+      <div className="flex justify-start h-10 p-2">
         {/* logo */}
         <svg
           width="w-auto"
@@ -86,13 +90,47 @@ function Header() {
           </defs>
         </svg>
       </div>
-      <div className="w-full flex justify-end items-center gap-2 pr-1">
+      <div className="w-full h-full flex justify-end items-center gap-4 pr-1">
+        <div className="w-36 sm:w-40 rounded-md">
+          <RadioGroup value={aqiType} onChange={setAqiType}>
+            <div className="w-fulll flex justify-center items-center">
+              <RadioGroup.Option
+                value="us"
+                className={({ checked }) =>
+                  `
+                  ${
+                    checked
+                      ? "bg-white"
+                      : "bg-slate-200 text-white shadow-inner"
+                  }
+                    relative flex cursor-pointer rounded-l-md shadow-sm focus:outline-none w-full h-full justify-center items-center sm:py-1`
+                }
+              >
+                <p className="ordinal text-slate-600 font-normal text-sm sm:text-base">
+                  US AQI
+                </p>
+              </RadioGroup.Option>
+              <RadioGroup.Option
+                value="cn"
+                className={({ checked }) =>
+                  `
+                  ${
+                    checked
+                      ? "bg-white"
+                      : "bg-slate-200 text-white shadow-inner"
+                  }
+                    relative flex cursor-pointer rounded-r-md shadow-sm focus:outline-none w-full justify-center items-center sm:py-1`
+                }
+              >
+                <p className="ordinal text-slate-600 font-normal text-sm sm:text-base">
+                  CN AQI
+                </p>
+              </RadioGroup.Option>
+            </div>
+          </RadioGroup>
+        </div>
         <div className="w-20 sm:w-24 rounded-md">
-          <RadioGroup
-            // defaultValue={tempUnit}
-            value={tempUnit}
-            onChange={setTempUnit}
-          >
+          <RadioGroup value={temperatureUnit} onChange={setTemperatureUnit}>
             <div className="w-fulll flex justify-center items-center">
               <RadioGroup.Option
                 value="fahrenheit"
@@ -106,7 +144,9 @@ function Header() {
                     relative flex cursor-pointer rounded-l-md shadow-sm focus:outline-none w-full justify-center items-center sm:py-1`
                 }
               >
-                <p className="ordinal text-slate-600 font-normal">oF</p>
+                <p className="ordinal text-slate-600 font-normal text-sm sm:text-base">
+                  oF
+                </p>
               </RadioGroup.Option>
               <RadioGroup.Option
                 value="celsius"
@@ -120,7 +160,9 @@ function Header() {
                     relative flex cursor-pointer rounded-r-md shadow-sm focus:outline-none w-full justify-center items-center sm:py-1`
                 }
               >
-                <p className="ordinal text-slate-600 font-normal">oC</p>
+                <p className="ordinal text-slate-600 font-normal text-sm sm:text-base">
+                  oC
+                </p>
               </RadioGroup.Option>
             </div>
           </RadioGroup>
